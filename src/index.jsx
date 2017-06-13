@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component, PropTypes} from "react";
 import ReactDOM from "react-dom";
 import injectTapEventPlugin from "react-tap-event-plugin";
 import {Provider} from 'react-redux';
@@ -19,19 +19,25 @@ window.React = React;
 //https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 
+
 const store = configureStore();
 
-ReactDOM.render(
-    <Provider store={store}>
+class Wrapper extends Component {
+    render() {
+        return (
+            <Provider store={store}>
+                { /* ConnectedRouter will use the store from Provider automatically */ }
+                <HashRouter history={history}>
+                    <div>
+                        <Route path="/event/:vote_address" component={VoteEvent}/>
+                        <Route path="/re-create-event/" component={CreateEvent}/>
+                        <Route exact path="/" component={App}/>
+                    </div>
+                </HashRouter>
+            </Provider>
+        );
+    }
+}
 
-        { /* ConnectedRouter will use the store from Provider automatically */ }
-        <HashRouter history={history}>
-            <div>
-                <Route path="/event/:vote_address" component={VoteEvent}/>
-                <Route path="/re-create-event/" component={CreateEvent}/>
-                <Route exact path="/" component={App}/>
-            </div>
-        </HashRouter>
-    </Provider>,
-    document.getElementById("root")
-);
+    
+ReactDOM.render(<Wrapper />, document.getElementById('root'));

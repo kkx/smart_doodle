@@ -24,6 +24,19 @@
         s.parentNode.insertBefore(wf, s);
       })();
     </script>
-    <script src="/smart_doodle/static/bundle.js"></script>
+    <!-- load javascript after the page is loaded, in this way metamask would be already injected -->
+    <script type="text/javascript">
+      function downloadJSAtOnload() {
+          var element = document.createElement("script");
+          element.src = "./bundle.js";
+          document.body.appendChild(element);
+      }
+
+      if (window.addEventListener)
+          window.addEventListener("load", downloadJSAtOnload, false);
+      else if (window.attachEvent)
+          window.attachEvent("onload", downloadJSAtOnload);
+      else window.onload = downloadJSAtOnload;
+    </script>
   </body>
 </html>

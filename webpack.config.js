@@ -18,7 +18,17 @@ module.exports = {
     loaders: [
       { test: /\.html$/, loader: "file?name=[name].[ext]" },
       { test: /\.css$/, loader: "file?name=[name].[ext]" },
+
       { test: /\.jsx?$/, exclude: /node_modules/, loaders: ["react-hot","babel-loader"]},
+      {
+                test: /\.json?$/,
+                loader: 'json-loader'
+        },
+        {
+          test: /\.css$/,
+            loader: 'style-loader!css-loader',
+              include: /flexboxgrid/
+        }
     ],
   },
   resolve: {

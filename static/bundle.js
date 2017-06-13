@@ -27750,8 +27750,18 @@
 	    }
 
 	    (0, _createClass3.default)(App, [{
-	        key: 'componentWillMount',
-	        value: function componentWillMount() {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+
+	            // Checking if Web3 has been injected by the browser (Mist/MetaMask)
+	            if (typeof web3 !== 'undefined') {
+	                // Use Mist/MetaMask's provider
+	                window.web3 = new Web3(web3.currentProvider);
+	            } else {
+	                console.log('No web3? You should consider trying MetaMask!'
+	                // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
+	                );window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+	            }
 	            var oldCurrentAddress = this.props.userAddress.currentAccountAddress;
 	            this.props.actions.fetchUserAccounts();
 	            if (oldCurrentAddress) {
@@ -68007,8 +68017,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	console.log(web3);
 	var ETHEREUM_CLIENT = exports.ETHEREUM_CLIENT = web3 || new _web2.default(new _web2.default.providers.HttpProvider("http://localhost:8545"));
+	console.log(web3);
 
 	var contractABI = [{ "constant": true, "inputs": [{ "name": "", "type": "address" }], "name": "voteEvents", "outputs": [{ "name": "title", "type": "bytes32" }], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "getUserEvents1", "outputs": [{ "name": "event_address", "type": "address" }], "payable": false, "type": "function" }, { "constant": true, "inputs": [{ "name": "eventAddress", "type": "address" }], "name": "eventStatus", "outputs": [{ "name": "title", "type": "bytes32" }, { "name": "isVoted", "type": "bool" }, { "name": "proposalsList", "type": "bytes32[10]" }, { "name": "proposalsScores", "type": "uint256[10]" }], "payable": false, "type": "function" }, { "constant": false, "inputs": [{ "name": "title", "type": "bytes32" }, { "name": "proposalNames", "type": "bytes32[10]" }], "name": "createEvent", "outputs": [{ "name": "sufficient", "type": "bool" }], "payable": false, "type": "function" }, { "constant": true, "inputs": [{ "name": "page", "type": "uint8" }], "name": "getUserEvents", "outputs": [{ "name": "event_addresses", "type": "address[10]" }, { "name": "event_names", "type": "bytes32[10]" }], "payable": false, "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }, { "name": "", "type": "uint256" }], "name": "userEvents", "outputs": [{ "name": "", "type": "address" }], "payable": false, "type": "function" }, { "constant": false, "inputs": [{ "name": "eventAddress", "type": "address" }, { "name": "proposalNames", "type": "bytes32[]" }], "name": "vote", "outputs": [{ "name": "sufficient", "type": "bool" }], "payable": false, "type": "function" }, { "anonymous": false, "inputs": [{ "indexed": false, "name": "value", "type": "uint256" }], "name": "logUserEvents", "type": "event" }];
 

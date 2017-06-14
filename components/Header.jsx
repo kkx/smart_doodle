@@ -7,12 +7,16 @@ const defaultStyle = {
 };
 
 class Header extends Component {
+    handleGithubIconClick = () => {
+        window.location = 'https://github.com/kkx/smart_doodle';
+    }
+
     render() {
         return (
             <header className="header">
-                <AppBar title="Doodle"
+                <AppBar title="Doodle(on Ropsten)"
                         showMenuIconButton={false}
-                        iconElementRight={<IconButton iconClassName="muidocs-icon-custom-github" />}
+                        iconElementRight={<IconButton iconClassName="muidocs-icon-custom-github" onClick={this.handleGithubIconClick}/>}
 
                 />
             </header>

@@ -1,3 +1,5 @@
+var webpack = require("webpack");
+
 module.exports = {
   context: __dirname,
   entry: {
@@ -10,6 +12,13 @@ module.exports = {
     path: __dirname + "/static",
     filename: "bundle.js",
   },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+        minimize: true,
+        compress: true,
+        output: {comments: false}
+    })
+  ],
   module: {
     preLoaders: [
         //Eslint loader
